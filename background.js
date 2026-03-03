@@ -4,6 +4,7 @@ chrome.runtime.onInstalled.addListener(() => {
     id: "moodle-download-pdf",
     title: "⬇ Download PDF (Moodle)",
     contexts: ["link"],
+    targetUrlPatterns: ["*://cyberlearn.hes-so.ch/*"],
   });
 });
 
