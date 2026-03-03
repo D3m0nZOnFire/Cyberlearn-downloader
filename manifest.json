@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Moodle PDF Fetcher",
+  "version": "1.0.0",
+  "description": "Right-click any Moodle resource link to download the PDF directly.",
+  "permissions": [
+    "contextMenus",
+    "downloads",
+    "storage",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon.png",
+      "48": "icons/icon.png",
+      "128": "icons/icon.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon.png",
+    "48": "icons/icon.png",
+    "128": "icons/icon.png"
+  }
+}

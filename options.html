@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Moodle PDF Fetcher — Settings</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0f1117; --surface: #181c27; --border: #2a2f3f;
+      --accent: #4f8ef7; --accent-dim: #1e2d4a;
+      --text: #e8eaf0; --text-dim: #7a8099;
+      --success: #3dd68c; --error: #f76f6f;
+      --mono: 'DM Mono', monospace; --sans: 'DM Sans', sans-serif;
+    }
+    body {
+      min-height: 100vh; background: var(--bg); color: var(--text);
+      font-family: var(--sans); font-size: 14px;
+      display: flex; align-items: flex-start; justify-content: center;
+      padding: 48px 16px;
+    }
+    .card {
+      width: 100%; max-width: 500px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+    }
+    .card-header {
+      padding: 20px 24px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .card-icon { font-size: 28px; line-height: 1; }
+    .card-header h1 { font-size: 16px; font-weight: 600; }
+    .card-header p { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+    .card-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+
+    .field { display: flex; flex-direction: column; gap: 8px; }
+    .field > label {
+      font-size: 11px; font-weight: 600; color: var(--text-dim);
+      text-transform: uppercase; letter-spacing: 0.09em;
+    }
+
+    /* The path row: fixed prefix + editable input + browse button */
+    .path-row {
+      display: flex; align-items: stretch;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; overflow: hidden;
+      transition: border-color 0.15s;
+    }
+    .path-row:focus-within { border-color: var(--accent); }
+
+    .path-prefix {
+      padding: 10px 0 10px 12px;
+      font-family: var(--mono); font-size: 13px;
+      color: var(--text-dim); white-space: nowrap;
+      user-select: none; flex-shrink: 0;
+    }
+
+    input[type="text"] {
+      flex: 1; min-width: 0;
+      background: transparent; border: none; outline: none;
+      padding: 10px 8px 10px 2px;
+      color: var(--text); font-family: var(--mono); font-size: 13px;
+    }
+    input[type="text"]::placeholder { color: var(--text-dim); opacity: 0.6; }
+
+    .browse-btn {
+      background: var(--surface); border: none; border-left: 1px solid var(--border);
+      padding: 10px 14px; color: var(--text-dim);
+      font-family: var(--sans); font-size: 12px; font-weight: 500;
+      cursor: pointer; white-space: nowrap; display: flex; align-items: center;
+      gap: 5px; transition: background 0.15s, color 0.15s; flex-shrink: 0;
+    }
+    .browse-btn:hover { background: var(--border); color: var(--text); }
+
+    .hint { font-size: 12px; color: var(--text-dim); line-height: 1.6; }
+    .hint code {
+      font-family: var(--mono); background: var(--bg); border: 1px solid var(--border);
+      padding: 1px 6px; border-radius: 4px; font-size: 11px; color: var(--accent);
+    }
+
+    .status {
+      font-size: 12px; padding: 8px 12px; border-radius: 6px;
+      display: none; align-items: center; gap: 8px;
+    }
+    .status.success {
+      display: flex; background: rgba(61,214,140,0.1);
+      border: 1px solid rgba(61,214,140,0.3); color: var(--success);
+    }
+    .status.error {
+      display: flex; background: rgba(247,111,111,0.1);
+      border: 1px solid rgba(247,111,111,0.3); color: var(--error);
+    }
+
+    .actions { display: flex; gap: 8px; align-items: center; }
+    .save-btn {
+      background: var(--accent); color: #fff; border: none; border-radius: 8px;
+      padding: 10px 20px; font-family: var(--sans); font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: opacity 0.15s, transform 0.1s;
+    }
+    .save-btn:hover { opacity: 0.88; }
+    .save-btn:active { transform: scale(0.97); }
+    .reset-btn {
+      background: none; border: 1px solid var(--border); border-radius: 8px;
+      padding: 10px 14px; font-family: var(--sans); font-size: 12px;
+      color: var(--text-dim); cursor: pointer; transition: border-color 0.15s, color 0.15s;
+    }
+    .reset-btn:hover { border-color: var(--text-dim); color: var(--text); }
+
+    .note {
+      background: var(--accent-dim); border: 1px solid rgba(79,142,247,0.25);
+      border-radius: 8px; padding: 12px 14px; font-size: 12px;
+      color: var(--text-dim); line-height: 1.6;
+    }
+    .note strong { color: var(--text); }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">📄</div>
+      <div>
+        <h1>Moodle PDF Fetcher</h1>
+        <p>Settings</p>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="field">
+        <label>Download Folder</label>
+        <div class="path-row">
+          <span class="path-prefix">Downloads/</span>
+          <input type="text" id="subfolder" placeholder="Moodle PDFs" spellcheck="false" />
+          <button class="browse-btn" id="browse">📁 Browse</button>
+        </div>
+        <p class="hint">
+          Leave empty to save directly in <code>Downloads/</code>. Use <code>/</code> for subfolders — e.g. <code>School/Physics/S2</code>.
+        </p>
+      </div>
+
+      <div id="status" class="status"></div>
+
+      <div class="actions">
+        <button class="save-btn" id="save">Save</button>
+        <button class="reset-btn" id="reset">Reset to default</button>
+      </div>
+
+      <div class="note">
+        <strong>Note:</strong> Chrome extensions can only save files inside your configured Downloads directory. The path above is always relative to it.
+      </div>
+    </div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
