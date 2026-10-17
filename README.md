@@ -26,6 +26,7 @@ Moodle resource links (`mod/resource/view.php?id=…`) point to a wrapper page, 
 - `downloads`: saving the PDF
 - `storage`: remembering your subfolder
 - `notifications`: progress and error messages
+- Host access to `https://cyberlearn.hes-so.ch/*` only, to fetch the resource page with your session
 
 The extension only requests the link you right-clicked and the PDF it points to. There is no analytics and no server of its own.
 

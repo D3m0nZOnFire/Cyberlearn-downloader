@@ -103,7 +103,7 @@ async function downloadPdf(pdfUrl, subfolder) {
 function notify(title, message) {
   chrome.notifications.create({
     type: "basic",
-    iconUrl: "icons/icon48.png",
+    iconUrl: "icons/icon.png",
     title,
     message: String(message).slice(0, 200),
   });

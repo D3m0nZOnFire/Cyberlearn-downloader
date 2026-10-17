@@ -10,8 +10,7 @@
     "notifications"
   ],
   "host_permissions": [
-    "https://*/*",
-    "http://*/*"
+    "https://cyberlearn.hes-so.ch/*"
   ],
   "background": {
     "service_worker": "background.js"
